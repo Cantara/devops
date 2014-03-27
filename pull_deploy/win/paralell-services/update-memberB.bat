@@ -1,0 +1,1 @@
+call install-latest-paralell.bat <groupId> <artifactId> serviceB
