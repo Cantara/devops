@@ -2,6 +2,7 @@ FROM cantara/zulu
 MAINTAINER Erik Drolshammer <erik-dev@fjas.no>
 
 ENV HOME=/home/$BASE_IMAGE
+ENV BASE_IMAGE=$BASE_IMAGE
 RUN useradd -d "$HOME" -u 500 -m -s /bin/bash $BASE_IMAGE
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
