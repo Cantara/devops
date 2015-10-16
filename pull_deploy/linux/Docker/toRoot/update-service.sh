@@ -1,13 +1,13 @@
 #!/bin/bash
 # Script to download deployment unit from a Maven artifact repository.
 
-APP=example-app.jar
+APP=configservice.jar
 START_APP_COMMAND="/usr/bin/java -Dlogback.configurationFile=./logback.xml -jar $APP"
 
-releaseRepo=http://mvnrepo.example.com/content/repositories/releases
-snapshotRepo=http://mvnrepo.example.com/content/repositories/snapshots
-groupId=com/example/something
-artifactId=something-something
+releaseRepo=http://mvnrepo.cantara.no/content/repositories/releases
+snapshotRepo=http://mvnrepo.cantara.no/content/repositories/snapshots
+groupId=no/cantara/jau
+artifactId=configservice
 
 # use APP_VERSION environment variable if available
 # default to version SNAPSHOT

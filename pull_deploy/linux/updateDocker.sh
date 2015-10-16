@@ -1,13 +1,13 @@
 #!/bin/sh
 set -e
 date # for logging
-BASE_IMAGE="aimage"
-REGISTRY="aregistry"
+BASE_IMAGE="cantara-configservice"
+REGISTRY="itcapra"
 IMAGE="$REGISTRY/$BASE_IMAGE"
 
 CONFIG_FILE_NAME=config_override.properties
 CONFIG_FILE="$(pwd)/$CONFIG_FILE_NAME"
-PORT_MAPPING="80:8082"
+PORT_MAPPING="8086:8086"
 VERSION= # define a version here, or leave it blank, and SNAPSHOT will be used
 
 DOCKER_RUN_COMMAND="docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --restart=always -e \"APP_VERSION=$VERSION\" -v $CONFIG_FILE:/home/$BASE_IMAGE/config_override.properties $IMAGE:latest"

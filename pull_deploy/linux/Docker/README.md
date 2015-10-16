@@ -19,7 +19,7 @@ Create a configuration file, e.g. `config_override.properties`.
 
 Connecting to instance for debugging:
 ```bash
-sudo docker exec -it -u $BASE_IMAGE $BASE_IMAGE bash
+docker exec -it -u $BASE_IMAGE $BASE_IMAGE bash
 ```
 
 ## Testing docker locally
