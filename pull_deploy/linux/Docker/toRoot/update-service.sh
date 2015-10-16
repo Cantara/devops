@@ -2,7 +2,7 @@
 # Script to download deployment unit from a Maven artifact repository.
 
 APP=example-app.jar
-START_APP_COMMAND="/usr/bin/java -DDogback.configurationFile=./logback.xml -jar $APP"
+START_APP_COMMAND="/usr/bin/java -Dlogback.configurationFile=./logback.xml -jar $APP"
 
 releaseRepo=http://mvnrepo.example.com/content/repositories/releases
 snapshotRepo=http://mvnrepo.example.com/content/repositories/snapshots
