@@ -18,6 +18,8 @@ COPY toRoot/* $HOME/
 RUN chown -R $BASE_IMAGE:$BASE_IMAGE $HOME
 RUN chmod 755 $HOME/*.sh
 
+COPY ../vars.sh $HOME/
+
 ADD crontab /etc/cron.d/$BASE_IMAGE
 RUN chmod 0644 /etc/cron.d/$BASE_IMAGE
 
