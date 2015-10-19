@@ -21,5 +21,5 @@ echo "Starting instance. Do 'docker exec -it $BASE_IMAGE-dev bash' to get shell"
 
 CONFIG="-v $CONFIG_FILE:/home/$BASE_IMAGE/config_override.properties"
 
-docker run --rm -p 8082:8082 --name $BASE_IMAGE-dev $CONFIG $LOCAL $BASE_IMAGE-dev
+docker run --rm -p 8086:8086 --name configservice-dev $CONFIG $LOCAL configservice-dev
 

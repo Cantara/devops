@@ -16,6 +16,7 @@ version="${APP_VERSION:-SNAPSHOT}"
 # Set these two to something if repository is not open
 username=
 password=
+
 if [[ -v username && -v password ]]; then
   wgetAuth="--user=$username --password=$password"
   curlAuth="--user $username:$password"
