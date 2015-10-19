@@ -3,7 +3,7 @@ This directory contains two folders. Deploy and build. This setup uses [ConfigSe
 # Deploy
 Deploy contains [updateDocker.sh](deploy/updateDocker.sh) which is the only file needed to download and run a Docker image.
 
-1. Simple run `./updateDocker.sh`. This will run download and run the Docker image.
+1. Simply run `./updateDocker.sh`. This will run download and run the Docker image.
 2. Running `./updateDocker.sh` again (and again, i.e. from a crontab job) will check for newer versions of the Docker image, and if found, terminate the running image, and start the newer one.
 3. You have to define your own crontab to run [updateDocker.sh](deploy/updateDocker.sh) at appropriate intervals.
 
