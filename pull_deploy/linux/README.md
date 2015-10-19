@@ -8,7 +8,7 @@ Deploy contains [updateDocker.sh](deploy/updateDocker.sh) which is the only file
 3. You have to define your own crontab to run [updateDocker.sh](deploy/updateDocker.sh) at appropriate intervals.
 
 # Building
-The [build](build) folder contains a Docker folder, which is a replica of the Docker folder within ConfigService.
+The [build](build) folder contains a Docker folder, which is a replica of the Docker folder within ConfigService. I.e. you would typically need to copy this folder to your project and make small adaptions to it, so you can build (and push) your own Docker image from this. Then you could later deploy it, as described above.
 
 1. The essential part here is that [update-service.sh](build/Docker/toRoot/update-service.sh) will be running repeatedly by a crontab in the Docker container.
 2. [update-service.sh](build/Docker/toRoot/update-service.sh) will, like the deploy mechanism, download and run a (Java) application, and check for newer versions to download and run.
