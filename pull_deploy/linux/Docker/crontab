@@ -1,1 +1,0 @@
-* *  *   *   *     /home/$BASE_IMAGE/update-service.sh >> /var/log/cron.log 2>&1
