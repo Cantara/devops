@@ -1,8 +1,21 @@
 #!/bin/bash
 # Script to download deployment unit from a Maven artifact repository.
 
-source vars.sh # this file contains all variables
+APP=configservice.jar
+START_APP_COMMAND="/usr/bin/java -Dlogback.configurationFile=./logback.xml -jar $APP"
 
+releaseRepo=http://mvnrepo.cantara.no/content/repositories/releases
+snapshotRepo=http://mvnrepo.cantara.no/content/repositories/snapshots
+groupId=no/cantara/jau
+artifactId=configservice
+
+# use APP_VERSION environment variable if available
+# default to version SNAPSHOT
+version="${APP_VERSION:-SNAPSHOT}"
+
+# Set these two to something if repository is not open
+username=
+password=
 if [[ -v username && -v password ]]; then
   wgetAuth="--user=$username --password=$password"
   curlAuth="--user $username:$password"
