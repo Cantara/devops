@@ -34,7 +34,7 @@ RUN crontab -u $USER /etc/cron.d/configservice
 COPY logrotate_config/logrotate.conf /etc/logrotate.conf
 COPY logrotate_config/logrotate.d/* /etc/logrotate.d/
 
-#Permissions
+##Permissions
 RUN chown -R $USER:$USER $HOME
 
 ##Download application
