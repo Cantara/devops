@@ -4,13 +4,20 @@ date # for logging
 BASE_IMAGE="cantara-configservice"
 REGISTRY="itcapra"
 IMAGE="$REGISTRY/$BASE_IMAGE"
+DATA_VOLUME="$BASE_IMAGE-data-volume"
 
-CONFIG_FILE_NAME=config_override.properties
-CONFIG_FILE="$(pwd)/$CONFIG_FILE_NAME"
 PORT_MAPPING="8086:8086"
-VERSION= # define a version here, or leave it blank, and SNAPSHOT will be used
 
-DOCKER_RUN_COMMAND="docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --restart=always -e \"APP_VERSION=$VERSION\" -v $CONFIG_FILE:/home/$BASE_IMAGE/config_override.properties $IMAGE:latest"
+DOCKER_CREATE_DATA_VOLUME_COMMAND="docker create --name $DATA_VOLUME $IMAGE:latest"
+DOCKER_RUN_COMMAND="docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --restart=always $IMAGE:latest"
+
+DATA_VOLUME_ID=$(docker ps | grep $DATA_VOLUME | awk '{print $1}')
+if [ ! -z "$DATA_VOLUME_ID" ]; then
+  echo "Data volume $DATA_VOLUME does not exist. Running '$DOCKER_CREATE_DATA_VOLUME_COMMAND'"
+  $DOCKER_CREATE_DATA_VOLUME_COMMAND
+else 
+  echo "Data volume $DATA_VOLUME exists. Not touching it."
+fi
 
 CID=$(docker ps | grep $IMAGE | awk '{print $1}')
 docker pull $IMAGE
@@ -30,10 +37,10 @@ if [ $CID ]; then # if already running
               echo "Running DOCKER_RUN_COMMAND"
               $DOCKER_RUN_COMMAND
           else
-              echo "$NAME up to date"
+              echo "$NAME is up to date. No changes to running image is done."
           fi
    done
 else
-   echo "Running DOCKER_RUN_COMMAND"
+   echo "Running '$DOCKER_RUN_COMMAND'"
    $DOCKER_RUN_COMMAND
 fi
