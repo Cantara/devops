@@ -1,7 +1,7 @@
 FROM cantara/zulu
 MAINTAINER Erik Drolshammer <erik-dev@fjas.no>
 
-ENV USER=configservice
+ENV USER=hostedapplication
 ENV HOME=/home/$USER
 RUN useradd -d "$HOME" -u 500 -m -s /bin/bash $USER
 
@@ -24,11 +24,11 @@ RUN mkdir $HOME/db
 COPY config_override_templates/* $HOME/config_override/
 
 ##Configure crontab
-ADD crontab /etc/cron.d/configservice
-RUN chmod 0644 /etc/cron.d/configservice
+ADD crontab /etc/cron.d/$USER
+RUN chmod 0644 /etc/cron.d/$USER
 RUN touch /var/log/cron.log
 RUN chown $USER /var/log/cron.log
-RUN crontab -u $USER /etc/cron.d/configservice
+RUN crontab -u $USER /etc/cron.d/$USER
 
 ##Configure logrotate
 COPY logrotate_config/logrotate.conf /etc/logrotate.conf
