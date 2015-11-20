@@ -1,5 +1,8 @@
 # Running the Docker container 
 
+## What is this?
+* A Docker configuration which pulls and host a Java application from an artifact repository. The application is automatically updated by a cron job when running SNAPSHOTs.
+
 ## How it works
 * Configuration override is handled through files in the `config_override/` folder. The scripts in the `application_scripts` folder handle updating, starting and stopping of the hosted application. The `update-service.sh` script is run when building the Docker image, and will create a default `service_config.properties` from the file `config_override_templates/service_override.properties_template`. *This should be the absolute necessity for downloading and running an application.*
 * A `cron` job handles automatic updating of the hosted application *if* running SNAPSHOTs. With a release version, the `cron` job will not do anything.
