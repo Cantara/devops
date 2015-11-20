@@ -7,7 +7,7 @@
 ## ./stop-service.sh
 ## supervisord will automatically start the service again
 
-#Timestamp with some whitespace for readability in log
+#Timestamp for readability
 date +" --- RUNNING $(basename $0) %Y-%m-%d_%H:%M:%S --- "
 
 # Default repos, override in service_override.properties
@@ -33,7 +33,6 @@ else
 fi
 source $SERVICE_OVERRIDE # this might override variables
 
-
 # Copy logback-default.xml if file does not exist.
 LOGBACK_FILE=config_override/logback.xml
 if [ -f $LOGBACK_FILE ]; then
@@ -42,7 +41,6 @@ else
   echo "No $LOGBACK_FILE found. Copying logback-default.xml"
   cp config_override/logback-default.xml $LOGBACK_FILE
 fi
-
 
 if [[ $version == *SNAPSHOT* ]]; then
    echo Note: If the artifact version contains "SNAPSHOT", the latest snapshot version is downloaded, ignoring the version before SNAPSHOT.
