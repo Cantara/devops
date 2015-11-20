@@ -1,14 +1,14 @@
 #!/bin/sh
 # Downloads the newest version of a docker image, creates a data volume (if non-existant) and runs an application volume which uses the data volume.
-# Replace the BASE_IMAGE, REGISTRY, IMAGE AND POST_MAPPING variables with the docker image you wish to run
+# Replace the BASE_IMAGE, REGISTRY AND POST_MAPPING variables with the docker image you wish to run
 
 set -e
 date # for logging
 BASE_IMAGE= #"cantara-configservice"
 REGISTRY= #"itcapra"
-IMAGE= #"$REGISTRY/$BASE_IMAGE"
 PORT_MAPPING= #"8086:8086"
 
+IMAGE="$REGISTRY/$BASE_IMAGE"
 DATA_VOLUME="$BASE_IMAGE-data-volume"
 
 DOCKER_CREATE_DATA_VOLUME_COMMAND="docker create --name $DATA_VOLUME $IMAGE:latest"
