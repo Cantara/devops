@@ -40,7 +40,8 @@ RUN chown -R $USER:$USER $HOME
 ##Download application
 RUN su - $USER -c "$HOME/update-service.sh"
 
-VOLUME ["$HOME/config_override", "$HOME/db", "$HOME/logs"]
+## Map any additional volumes you want persisted in data volume container
+VOLUME ["$HOME/config_override", "$HOME/logs"]
 
 EXPOSE 8086
 CMD /usr/bin/supervisord
