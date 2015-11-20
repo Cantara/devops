@@ -65,10 +65,7 @@ else
   localSha=-1
 fi
 
-if [ -z "$shaFromWeb" ]; then
-    echo "Could not find version in remote repo! $version might be a non-existant version?"
-    exit 1;
-fi
+#TODO: Check if version actually exists!
 
 if [ "$shaFromWeb" == "$localSha" ]; then
   runningApplication=$(basename $(readlink -f $artifactId.jar))
