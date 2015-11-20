@@ -1,6 +1,3 @@
-service.port=8086
-
-login.user=read
-login.password=baretillesing
-
-mapdb.path=./db/serviceConfig.db
+# Put properties to override here. e.g.
+# service.port=8086
+# jms.rest.host=129.168.99.100

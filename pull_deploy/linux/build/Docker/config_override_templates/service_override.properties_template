@@ -1,7 +1,9 @@
-releaseRepo=http://mvnrepo.cantara.no/content/repositories/releases
-snapshotRepo=http://mvnrepo.cantara.no/content/repositories/snapshots
-groupId=no/cantara/jau
-artifactId=configservice
+# Properties used by update-service.sh script. ALL OF THESE ARE MANDATORY EXCEPT JAVA_PARAMS.
+
+releaseRepo=#http://mvnrepo.cantara.no/content/repositories/releases
+snapshotRepo=#http://mvnrepo.cantara.no/content/repositories/snapshots
+groupId=#no/cantara/jau
+artifactId=#configservice
 version=SNAPSHOT
 
 APP=${artifactId}.jar
