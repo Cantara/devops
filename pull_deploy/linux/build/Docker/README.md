@@ -4,7 +4,7 @@
 * A Docker configuration which pulls and host a Java application from an artifact repository. The application is automatically updated by a _cron_ job when running SNAPSHOTs.
 
 ## How it works
-* Configuration override is handled through files in the `config_override/` folder. The scripts in the `application_scripts` folder handle updating, starting and stopping of the hosted application. The `update-service.sh` script is run when building the Docker image, and will create a default `service_config.properties` from the file `config_override_templates/service_override.properties_template`. *This should be the absolute necessity for downloading and running an application.*
+* Configuration override is handled through files in the `config_override/` folder. The scripts in the `application_scripts` folder handle updating, starting and stopping of the hosted application. The `update-service.sh` script is run when building the Docker image, and will create a default `service_config.properties` from the file `config_override_templates/service_override.properties_template`. *This should be enough for downloading and running an application.*
 * A _cron_ job handles automatic updating of the hosted application *if* running SNAPSHOTs. With a release version, the _cron_ job will not do anything.
 
 ## Prerequisites
@@ -24,10 +24,10 @@
 * Update the default `config_override_templates/logback-default.xml` with desired config.
 
 ### Install and run 
-* Use the [https://github.com/Cantara/devops/blob/master/pull_deploy/linux/deploy/updateDocker.sh](updateDocker.sh) script, which creates a data-volume and runs an application volume (which uses the data-volume).
+* Use the [create_and_run_docker_container.sh](https://github.com/Cantara/devops/blob/master/pull_deploy/linux/deploy/create_and_run_docker_container.sh) script, which creates a data-volume and runs an application volume (which uses the data-volume).
 * Or run manually (replace the variables):
-** `docker create --name $DATA_VOLUME $IMAGE:latest"` for the data volume container
-** `docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --restart=always $IMAGE:latest` for the application container.
+  * `docker create --name $DATA_VOLUME $IMAGE:latest"` for the data volume container
+  * `docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --volumes-from $DATA_VOLUME --restart=always $IMAGE:latest` for the application container.
 
 Connecting to instance for debugging:
 ```bash
@@ -42,4 +42,4 @@ docker exec -it -u $VOLUME_USER $VOLUME_NAME bash
 Logs are saved in the `/var/log/cron.log` file and the `/var/log/supervisor/` directory.
 
 # Reference configuration
-* *See the Docker configuration in [https://github.com/Cantara/ConfigService](ConfigService) for a complete configuration based on this.*
+* *See the Docker configuration in [ConfigService](https://github.com/Cantara/ConfigService) for a complete configuration based on this.*
