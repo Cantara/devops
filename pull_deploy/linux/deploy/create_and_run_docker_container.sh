@@ -12,7 +12,7 @@ IMAGE="$REGISTRY/$BASE_IMAGE"
 DATA_VOLUME="$BASE_IMAGE-data-volume"
 
 DOCKER_CREATE_DATA_VOLUME_COMMAND="docker create --name $DATA_VOLUME $IMAGE:latest"
-DOCKER_RUN_COMMAND="docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --restart=always $IMAGE:latest"
+DOCKER_RUN_COMMAND="docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --restart=always --volumes-from $DATA_VOLUME $IMAGE:latest"
 
 DATA_VOLUME_ID=$(docker ps | grep $DATA_VOLUME | awk '{print $1}')
 if [ ! -z "$DATA_VOLUME_ID" ]; then
