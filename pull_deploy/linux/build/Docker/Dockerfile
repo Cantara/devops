@@ -30,7 +30,6 @@ RUN chmod 755 $HOME/*.sh
 
 ##Directories to persist for data volumes
 RUN mkdir $HOME/logs
-RUN mkdir $HOME/db
 COPY config_override_templates/* $HOME/config_override/
 
 ##Configure crontab
