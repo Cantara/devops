@@ -57,7 +57,7 @@ else #A specific release version
 fi
 
 shaUrl=$url.sha1
-shaFromWeb=$(wget $shaUrl -q -O -)
+shaFromWeb=$(wget $wgetAuth $shaUrl -q -O -)
 if [ -f $APP ]; then
   localSha=$(sha1sum $jarfile | awk '{print $1}')
 else
