@@ -6,5 +6,11 @@ groupId=#no/cantara/jau
 artifactId=#configservice
 version=SNAPSHOT
 
+# Authentication config if your artifact repo is restricted
+#username=usern4me
+#password=passw0rd
+#wgetAuth="--user=$username --password=$password"
+#curlAuth="--user $username:$password"
+
 APP=${artifactId}.jar
 JAVA_PARAMS="-Dlogback.configurationFile=./config_override/logback_override.xml -Xms128m -Xmx1024m"

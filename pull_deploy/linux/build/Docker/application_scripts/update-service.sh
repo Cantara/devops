@@ -78,7 +78,7 @@ if [ "$shaFromWeb" == "$localSha" ]; then
   fi
 else #Download new version and update symlink
   echo Downloading $url
-  wget -O $jarfile -q -N $url
+  wget $wgetAuth -O $jarfile -q -N $url
 
   create_or_replace_symlink
 
