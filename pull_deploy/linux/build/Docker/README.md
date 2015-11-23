@@ -24,10 +24,8 @@
 * Update the default `config_override_templates/logback-default.xml` with desired config.
 
 ### Install and run 
-* Use the [create_and_run_docker_container.sh](https://github.com/Cantara/devops/blob/master/pull_deploy/linux/deploy/create_and_run_docker_container.sh) script, which creates a data-volume and runs an application volume (which uses the data-volume).
-* Or run manually (replace the variables):
-  * `docker create --name $DATA_VOLUME $IMAGE:latest"` for the data volume container
-  * `docker run -d -p $PORT_MAPPING --name $BASE_IMAGE --volumes-from $DATA_VOLUME --restart=always $IMAGE:latest` for the application container.
+* Use the [create_and_run_docker_container.sh](https://github.com/Cantara/devops/blob/master/pull_deploy/linux/deploy/create_and_run_docker_container.sh) script, which creates a data-volume and runs an application volume (which uses the data-volume). The script must be configured with the image and Docker image repository to pull from before running.
+* Or build and run locally by executing `test-docker.sh`.
 
 Connecting to instance for debugging:
 ```bash
