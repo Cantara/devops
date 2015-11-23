@@ -3,7 +3,6 @@
 # from the image. Use it to test that your Docker configuration builds successfully.
 
 # Change these
-PROJECT_NAME=projectname
 IMAGE_NAME=docker-dev-test
 IMAGE_NAME_DATA=$IMAGE_NAME-data
 
