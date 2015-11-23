@@ -15,5 +15,3 @@ docker create --name $IMAGE_NAME-data $IMAGE_NAME
 docker run -d --name $IMAGE_NAME --volumes-from $IMAGE_NAME_DATA $IMAGE_NAME
 
 echo "Starting instance. Do 'docker exec -it $IMAGE_NAME bash' to get shell"
-
-
