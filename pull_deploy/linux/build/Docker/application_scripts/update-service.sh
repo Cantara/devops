@@ -14,7 +14,20 @@ date +" --- RUNNING $(basename $0) %Y-%m-%d_%H:%M:%S --- "
 releaseRepo=http://mvnrepo.cantara.no/content/repositories/releases
 snapshotRepo=http://mvnrepo.cantara.no/content/repositories/snapshots
 
+function verify_new_download() {
+  #Check if file exists, and contains data (is not empty)
+  if [[ -s $jarfile ]] ; then
+    echo "$jarfile exists, and is not empty"
+  else
+    echo "$jarfile is empty. Deleting it."
+    rm -f $jarfile
+    echo "Aborting update"
+    exit 1
+  fi
+}
+
 function create_or_replace_symlink() {
+  verify_new_download
   if [ -h $artifactId.jar ]; then
      unlink $artifactId.jar
   fi
