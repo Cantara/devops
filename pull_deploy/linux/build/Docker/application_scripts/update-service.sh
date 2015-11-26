@@ -48,7 +48,7 @@ if [[ $version == *SNAPSHOT* ]]; then
    version=`curl $curlAuth -s "$path/maven-metadata.xml" | grep "<version>" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/" | tail -n 1`
    if [[ $version == "" ]]; then
      echo "Version is empty. Possible reasons include incorrect path to maven-metadata.xml, or unavailable repository"
-     echo "Aborting update of application"
+     echo "Aborting update of application, no new files downloaded"
      exit 1;
    else 
      echo "Found version=$version from metadata $path/maven-metadata.xml"
@@ -86,6 +86,8 @@ if [ "$shaFromWeb" == "$localSha" ]; then
 else #Download new version and update symlink
   echo Downloading $url
   wget $wgetAuth -O $jarfile -q -N $url
+
+
 
   create_or_replace_symlink
 
