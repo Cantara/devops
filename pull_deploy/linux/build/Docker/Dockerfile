@@ -17,12 +17,12 @@ RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ## Download scripts
-RUN wget https://raw.githubusercontent.com/Cantara/devops/master/pull_deploy/linux/build/Docker/application_scripts/start-service.sh \
-    -P $HOME && \
-    wget https://raw.githubusercontent.com/Cantara/devops/master/pull_deploy/linux/build/Docker/application_scripts/stop-service.sh \
-    -P $HOME && \
-    wget https://raw.githubusercontent.com/Cantara/devops/master/pull_deploy/linux/build/Docker/application_scripts/update-service.sh \
-    -P $HOME
+ADD https://raw.githubusercontent.com/Cantara/devops/master/pull_deploy/linux/build/Docker/application_scripts/start-service.sh \
+    $HOME/start-service.sh
+ADD https://raw.githubusercontent.com/Cantara/devops/master/pull_deploy/linux/build/Docker/application_scripts/stop-service.sh \
+    $HOME/stop-service.sh
+ADD https://raw.githubusercontent.com/Cantara/devops/master/pull_deploy/linux/build/Docker/application_scripts/update-service.sh \
+    $HOME/update-service.sh
 
 ## Configure application
 COPY CRON $HOME/
