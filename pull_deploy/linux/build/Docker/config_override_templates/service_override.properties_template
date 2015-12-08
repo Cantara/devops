@@ -4,7 +4,7 @@ releaseRepo=#http://mvnrepo.cantara.no/content/repositories/releases
 snapshotRepo=#http://mvnrepo.cantara.no/content/repositories/snapshots
 groupId=#no/cantara/jau
 artifactId=#configservice
-version=SNAPSHOT
+version=#1.0.0 (latest stable release)
 
 # Authentication config if your artifact repo is restricted
 #username=usern4me
