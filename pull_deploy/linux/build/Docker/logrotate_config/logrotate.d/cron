@@ -4,5 +4,6 @@
     compress
     size 20M
     daily
-    create 0744 root root
+    rotate 4
+    create 0744 <user> <user>
 }

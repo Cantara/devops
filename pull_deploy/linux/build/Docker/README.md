@@ -19,6 +19,9 @@
 ### Supervisord.conf
 * Update the `APPLICATION` program entry with user and user's home directory (the `USER` variable from the `Dockerfile`).
 
+### Logrotate.conf
+* Update the `cron` and `supervisord` files in `logrotate_config/logrotate.d/` folder with user to set permissions to.
+
 ### Default configuration
 * Update the `config_override_templates/service_override.properties_template` file with your project's artifact repository details as well as a default run configuration for your Java application. 
 * Update the default `config_override_templates/logback-default.xml` with desired config.
