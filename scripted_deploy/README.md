@@ -7,7 +7,8 @@
 ### Download and create scripts
 ```
 curl https://raw.githubusercontent.com/Cantara/devops/master/scripted_deploy/create-service.sh
-./create-service <ServiceName> <no.cantara.service>
+./create-service <ServiceName> <org.group.id>
+#Eg ./create-service microservice-baseline no.cantara.service
 ```
 
 ### Download jar, and start service
