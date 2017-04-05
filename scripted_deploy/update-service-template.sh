@@ -3,8 +3,8 @@
 
 releaseRepo=http://mvnrepo.cantara.no/content/repositories/releases
 snapshotRepo=http://mvnrepo.cantara.no/content/repositories/snapshots
-groupId=net/whydah/token
-artifactId=SecurityTokenService
+groupId={group-id}
+artifactId={artifact-id}
 V=SNAPSHOT
 
 
