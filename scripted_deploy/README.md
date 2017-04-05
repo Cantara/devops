@@ -4,6 +4,15 @@
 * Create update service script
 * Create start service script
 
+### Download and create scripts
 ```
-totod
+curl https://raw.githubusercontent.com/Cantara/devops/master/scripted_deploy/create-service.sh
+./create-service <ServiceName> <no.cantara.service>
+```
+
+### Download jar, and start service
+```
+./su_to...
+./update-service.sh
+./start-service.sh
 ```
