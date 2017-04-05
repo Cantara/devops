@@ -7,13 +7,19 @@ groupId={group-id}
 artifactId={artifact-id}
 V=SNAPSHOT
 
+# Uncomment these 4 lines if your repo is secured.
+#username=<todo>
+#password=<todo>
+#wgetAuth="--user=$username --password=$password"
+#curlAuth="--user $username:$password"
+
 
 if [[ $V == *SNAPSHOT* ]]; then
    echo Note: If the artifact version contains "SNAPSHOT", the latest snapshot version is downloaded, ignoring the version before SNAPSHOT.
    path="$snapshotRepo/$groupId/$artifactId"
-   version=`curl -s "$path/maven-metadata.xml" | grep "<version>"  | grep "$V" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/" | tail -n 1`
+   version=`curl $curlAuth -s "$path/maven-metadata.xml" | grep "<version>"  | grep "$V" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/" | tail -n 1`
    #echo "version=$version, path=$path"
-   build=`curl -s "$path/$version/maven-metadata.xml" | grep '<value>' | head -1 | sed "s/.*<value>\([^<]*\)<\/value>.*/\1/"`
+   build=`curl $curlAuth -s "$path/$version/maven-metadata.xml" | grep '<value>' | head -1 | sed "s/.*<value>\([^<]*\)<\/value>.*/\1/"`
    JARFILE="$artifactId-$build.jar"
    url="$path/$version/$JARFILE"
 else #A specific Release version
@@ -24,7 +30,7 @@ fi
 
 # Download artifact
 echo Downloading $url
-wget -O $JARFILE -q -N $url
+wget $wgetAuth -O $JARFILE -q -N $url
 
 
 # Create symlink or replace existing sym link
