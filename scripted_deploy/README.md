@@ -6,7 +6,7 @@
 
 ### Download and create scripts
 ```
-curl https://raw.githubusercontent.com/Cantara/devops/master/scripted_deploy/create-service.sh
+curl -o create-service.sh https://raw.githubusercontent.com/Cantara/devops/master/scripted_deploy/create-service.sh
 ./create-service <ServiceName> <org.group.id>
 #Eg ./create-service microservice-baseline no.cantara.service
 ```
