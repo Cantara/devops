@@ -39,7 +39,7 @@ if [ -e $startServiceFile ]; then
   echo "File $startServiceFile already exists!"
 else
   echo '#!/bin/bash' | sudo tee --append $startServiceFile
-  echo 'nohup /usr/bin/java  -jar /home/'$username'/'$servicename'.jar' | sudo tee --append $startServiceFile &
+  echo 'nohup /usr/bin/java  -jar /home/'$username'/'$servicename'.jar' & | sudo tee --append $startServiceFile &
   sudo chmod +x $startServiceFile
 fi
 
