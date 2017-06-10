@@ -27,7 +27,7 @@ curl -o install-upstart-amazon.sh https://raw.githubusercontent.com/Cantara/devo
 ### Create runtime
 
 ```
-./ install-upstart-amazon.sh <ServiceName>
+./install-upstart-amazon.sh <ServiceName>
 sudo initctl start <ServiceName>
 ```
 
