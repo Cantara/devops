@@ -13,7 +13,7 @@ curl -o create-service.sh https://raw.githubusercontent.com/Cantara/devops/maste
 
 ### Download jar, and start service
 ```
-./su_to...
+./su_to_<ServiceName>
 ./update-service.sh
 ./start-service.sh
 ```
