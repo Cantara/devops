@@ -1,0 +1,11 @@
+# Ubuntu upstart file, http://upstart.ubuntu.com/cookbook/
+description "<service-name> Upstart Configuration File"
+author "Bard Lind <bard.lind@gmail.com>"
+
+start on runlevel [2345]
+stop on runlevel [06]
+
+script
+    su -c "nohup /usr/bin/java  -jar /home/<user>/<service-name>.jar" -s /bin/sh - <user>
+end script
+
