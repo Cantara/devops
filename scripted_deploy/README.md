@@ -14,7 +14,7 @@ curl -o create-service.sh https://raw.githubusercontent.com/Cantara/devops/maste
 ### Download jar, and start service
 ```
 ./su_to_<ServiceName>
-./update-service.sh
+./update-service.sh # see --help for arguments
 ./start-service.sh
 ```
 # Install as upstart/initctl
