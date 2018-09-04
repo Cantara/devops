@@ -147,7 +147,7 @@ function download_artifact() {
         number_of_jar_files_to_keep=$(ls ${jar} -A1t | tail -n +6 | wc -l) || true
         if [[ "$number_of_jar_files_to_keep" > 0 ]]; then
             echo "Deleting ${number_of_jar_files_to_keep} old jar files. Keep the 4 newest + the symlink."
-            ls "$jar" -A1t | tail -n +6 | xargs rm
+            ls $jar -A1t | tail -n +6 | xargs rm
         fi
     fi
 
