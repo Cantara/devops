@@ -17,8 +17,8 @@
 # Supports hours 'h' and minutes 'm', e.g. '24h' or '90m'
 #
 # Known issues:
-# - Script will fail if configured with latest snapshot 'VERSION_PATTERN=SNAPSHOT' and there is only one SNAPSHOT version available. In such a case, the <latest> tag in maven-metadata.xml will not
-#   be found and the script will not resolve any artifact at all.
+# - Script will fail if configured with latest snapshot 'VERSION_PATTERN=SNAPSHOT' and there is only one SNAPSHOT version available.
+#   In such a case, the <latest> tag in maven-metadata.xml will not be set and the script will not resolve any artifact at all.
 
 # Set trace variable for run in debug mode, e.g. 'TRACE=1 ./update-service-template.sh'
 [[ "$TRACE" ]] && set -x
