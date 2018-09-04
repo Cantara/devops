@@ -19,6 +19,13 @@
 # Known issues:
 # - Script will fail if configured with latest snapshot 'VERSION_PATTERN=SNAPSHOT' and there is only one SNAPSHOT version available.
 #   In such a case, the <latest> tag in maven-metadata.xml will not be set and the script will not resolve any artifact at all.
+#
+# Exit codes:
+# 1: Error or no update available - i.e. the latest version is running
+# 0: New artifact has been downloaded and symlink has been updated.
+# You can leverage the exit codes in a cron job if you e.g. want automatic restarting of the service if the .jar file has been updated.
+# The following cron job only runs the initctl commands if the script exited with exit code 0:
+# - "* * * * * su -c '/home/great-application-user/update-service.sh; exit $?' -s /bin/bash - great-application && /sbin/initctl stop great-application && /sbin/initctl start great-application"
 
 # Set trace variable for run in debug mode, e.g. 'TRACE=1 ./update-service-template.sh'
 [[ "$TRACE" ]] && set -x
