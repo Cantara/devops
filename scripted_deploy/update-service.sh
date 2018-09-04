@@ -15,6 +15,10 @@
 #  - SNAPSHOT          -> latest snapshot major, minor and patch
 # Setting a delay for deploying an artifact. Checks that a given period of time has passed since the artifact was uploaded until the script will download the artifact.
 # Supports hours 'h' and minutes 'm', e.g. '24h' or '90m'
+#
+# Known issues:
+# - Script will fail if configured with latest snapshot 'VERSION_PATTERN=SNAPSHOT' and there is only one SNAPSHOT version available. In such a case, the <latest> tag in maven-metadata.xml will not
+#   be found and the script will not resolve any artifact at all.
 
 # Set trace variable for run in debug mode, e.g. 'TRACE=1 ./update-service-template.sh'
 [[ "$TRACE" ]] && set -x
@@ -28,7 +32,7 @@ ARTIFACT_ID=great-application
 DELAY= #hours or minutes support, e.g. '100m' and '24h'. Optional
 USERNAME=
 PASSWORD=
-CURL_AUTH=
+CURL_AUTH= #-u$USERNAME:$PASSWORD
 
 function usage() {
     echo "Downloads deployment unit matching a given pattern from a Maven artifact repository."
@@ -67,7 +71,7 @@ function check_expired_delay() {
         declare delay_parsed=$(($(echo "$DELAY" | sed 's/m//') * 60))
     fi
 
-    last_modified=$(curl $CURL_AUTH --fail --show-error -sI "$url" | grep 'Last-Modified:' | sed 's/Last-Modified: //' | { read gmt;
+    last_modified=$(curl $CURL_AUTH --fail --show-error -sI "$url" | grep 'Last-Modified:' | sed 's/[Ll]ast-[Mm]odified: //' | { read gmt;
         date +%s -d "$gmt"; })
     lm_with_delay=$(($last_modified + $delay_parsed))
 
