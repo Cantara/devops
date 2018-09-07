@@ -36,6 +36,7 @@ RELEASE_REPO=https://mvnrepo.cantara.no/content/repositories/releases
 SNAPSHOT_REPO=https://mvnrepo.cantara.no/content/repositories/snapshots
 GROUP_ID=org/company/product
 ARTIFACT_ID=great-application
+CLASSIFIER=
 DELAY= #hours or minutes support, e.g. '100m' and '24h'. Optional
 USERNAME=
 PASSWORD=
@@ -51,6 +52,7 @@ function usage() {
     echo "  --snapshot-repo=<value>     The Maven snapshot repository to download artifact from"
     echo "  --group-id=<value>          Group ID of artifact to download, e.g. 'com.company.product'"
     echo "  --artifact-id=<value>       Artifact ID of artifact to download"
+    echo "  --classifier=<value>        Classifier of artifact to download. Optional"
     echo "  --delay=<value>             Delay after an artifact has been published to the repository until this script will download it. Supports 'm' for minutes and 'h' for hours, e.g. '90m' or '24h'"
     echo "  --username=<value>          Username to Maven repo. Leave blank if no auth required"
     echo "  --password=<value>          Password to Maven repo. Leave blank if no auth required"
@@ -181,7 +183,10 @@ function fetch_latest_snapshot() {
     check_version_validity "$version"
 
     build=$(curl $CURL_AUTH --fail --show-error --silent "$path/$version/maven-metadata.xml" | grep '<value>' | head -1 | sed "s/.*<value>\([^<]*\)<\/value>.*/\1/") || true
-    jarfile="$ARTIFACT_ID-$build.jar"
+    if [[ -n "$CLASSIFIER" ]]; then
+        prepended_classifier="-${CLASSIFIER}"
+    fi
+    jarfile="${ARTIFACT_ID}-${build}${prepended_classifier}.jar"
     url="$path/$version/$jarfile"
 
     eval $1="'$jarfile'"
@@ -193,13 +198,15 @@ function fetch_snapshot_of_specific_version() {
     pad_input_to_match_specific_version "$1" input_version
 
     path="$SNAPSHOT_REPO/$GROUP_ID/$ARTIFACT_ID"
-    echo $path
     # Nexus returns artifacts sorted from old to new ascending. Pick last line
     version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<version>${input_version}" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/" | tail -n 1) || true
     check_version_validity "$version"
 
     build=$(curl $CURL_AUTH --fail --show-error --silent "$path/$version/maven-metadata.xml" | grep '<value>' | head -1 | sed "s/.*<value>\([^<]*\)<\/value>.*/\1/") || true
-    jarfile="${ARTIFACT_ID}-${build}.jar"
+    if [[ -n "$CLASSIFIER" ]]; then
+        prepended_classifier="-${CLASSIFIER}"
+    fi
+    jarfile="${ARTIFACT_ID}-${build}${prepended_classifier}.jar"
     url="$path/$version/$jarfile"
 
     eval $2="'$jarfile'"
@@ -212,7 +219,10 @@ function fetch_latest_release() {
     version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<release>" | sed "s/.*<release>\([^<]*\)<\/release>.*/\1/" | tail -n 1) || true
     check_version_validity "$version"
 
-    jarfile="${ARTIFACT_ID}-${version}.jar"
+    if [[ -n "$CLASSIFIER" ]]; then
+        prepended_classifier="-${CLASSIFIER}"
+    fi
+    jarfile="${ARTIFACT_ID}-${version}${prepended_classifier}.jar"
     url="$path/$version/$jarfile"
 
     eval $1="'$jarfile'"
@@ -228,7 +238,10 @@ function fetch_specific_release() {
     version=$(curl $CURL_AUTH --silent --fail --show-error "$path/maven-metadata.xml" | grep -F "<version>${input_version}" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/" | tail -n 1) || true
     check_version_validity "$version"
 
-    jarfile="${ARTIFACT_ID}-${version}.jar"
+    if [[ -n "$CLASSIFIER" ]]; then
+        prepended_classifier="-${CLASSIFIER}"
+    fi
+    jarfile="${ARTIFACT_ID}-${version}${prepended_classifier}.jar"
     url="$path/$version/$jarfile"
 
     eval $2="'$jarfile'"
@@ -303,6 +316,9 @@ function main() {
             ;;
             --artifact-id=?*)
                 ARTIFACT_ID=${1#--artifact-id=}
+            ;;
+            --classifier=?*)
+                CLASSIFIER=${1#--classifier=}
             ;;
             --delay=?*)
                 DELAY=${1#--delay=}
