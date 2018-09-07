@@ -23,15 +23,12 @@
 # The following cron job only runs the initctl commands if the script exited with exit code 0:
 # - "* * * * * su -c '/home/great-application-user/update-service.sh; exit $?' -s /bin/bash - great-application && /sbin/initctl stop great-application && /sbin/initctl start great-application"
 #
-# Known issues:
-# - Script will fail if configured with latest snapshot 'VERSION_PATTERN=SNAPSHOT' and there is only one SNAPSHOT version available.
-#   In such a case, the <latest> tag in maven-metadata.xml will not be set and the script will not resolve any artifact at all.
 
 # Set trace variable for run in debug mode, e.g. 'TRACE=1 ./update-service-template.sh'
 [[ "$TRACE" ]] && set -x
 set -eo pipefail
 
-VERSION_PATTERN=
+VERSION_PATTERN=SNAPSHOT
 RELEASE_REPO=https://mvnrepo.cantara.no/content/repositories/releases
 SNAPSHOT_REPO=https://mvnrepo.cantara.no/content/repositories/snapshots
 GROUP_ID=org/company/product
@@ -180,6 +177,11 @@ function pad_input_to_match_specific_version() {
 function fetch_latest_snapshot() {
     path="$SNAPSHOT_REPO/$GROUP_ID/$ARTIFACT_ID"
     version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<latest>" | sed "s/.*<latest>\([^<]*\)<\/latest>.*/\1/") || true
+
+    # version may be empty if there is only one snapshot in the repo. In the case, the <latest> tag will not be set.
+    if [[ "$version" == "" ]]; then
+        version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<version>" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/") || true
+    fi
     check_version_validity "$version"
 
     build=$(curl $CURL_AUTH --fail --show-error --silent "$path/$version/maven-metadata.xml" | grep '<value>' | head -1 | sed "s/.*<value>\([^<]*\)<\/value>.*/\1/") || true
