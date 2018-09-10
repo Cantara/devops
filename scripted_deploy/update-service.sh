@@ -84,7 +84,7 @@ function check_expired_delay() {
     now=$(date +%s)
     if [ "$lm_with_delay" -gt "$now" ]; then
         echo "Delay required since publishing of artifact has not passed. Will not update until after '$(date --iso-8601=minutes -d @${lm_with_delay})'. Exiting script."
-        exit 0
+        exit 1
     fi
 }
 
