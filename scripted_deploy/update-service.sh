@@ -338,7 +338,7 @@ function main() {
         shift
     done
 
-    if [ ! ${VERSION_PATTERN} ]; then
+    if [[ ! ${VERSION_PATTERN} ]]; then
         echo "Missing version pattern (e.g. --version-pattern='1.0.*')"
         exit
     fi
