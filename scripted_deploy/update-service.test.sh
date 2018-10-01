@@ -32,7 +32,6 @@ find_artifact_test() {
     fi
 
     find_artifact "SNAPSHOT" jarfile url
-    echo "$URL"
     if [[ ! "$url" == *SNAPSHOT*.jar ]]; then
         echoerr "EXPECTED:  to contain SNAPSHOT"
         echoerr "ACTUAL:    $jarfile - $url"

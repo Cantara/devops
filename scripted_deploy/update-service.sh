@@ -176,12 +176,10 @@ function pad_input_to_match_specific_version() {
 # Fetches latest, i.e. input "SNAPSHOT"
 function fetch_latest_snapshot() {
     path="$SNAPSHOT_REPO/$GROUP_ID/$ARTIFACT_ID"
-    version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<latest>" | sed "s/.*<latest>\([^<]*\)<\/latest>.*/\1/") || true
+    # Nexus returns artifacts sorted from old to new ascending. Pick last line
+    version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<version>" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/" | tail -n 1) || true
 
     # version may be empty if there is only one snapshot in the repo. In the case, the <latest> tag will not be set.
-    if [[ "$version" == "" ]]; then
-        version=$(curl $CURL_AUTH --fail --show-error --silent "$path/maven-metadata.xml" | grep "<version>" | sed "s/.*<version>\([^<]*\)<\/version>.*/\1/") || true
-    fi
     check_version_validity "$version"
 
     build=$(curl $CURL_AUTH --fail --show-error --silent "$path/$version/maven-metadata.xml" | grep '<value>' | head -1 | sed "s/.*<value>\([^<]*\)<\/value>.*/\1/") || true
