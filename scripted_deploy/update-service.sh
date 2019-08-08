@@ -24,7 +24,7 @@
 # - "* * * * * su -c '/home/great-application-user/update-service.sh; exit $?' -s /bin/bash - great-application && /sbin/initctl stop great-application && /sbin/initctl start great-application"
 #
 
-# Set trace variable for run in debug mode, e.g. 'TRACE=1 ./update-service-template.sh'
+# Set trace variable for run in debug mode, e.g. 'TRACE=1 ./update-service.sh'
 [[ "$TRACE" ]] && set -x
 set -eo pipefail
 
@@ -42,7 +42,7 @@ CURL_AUTH= #-u$USERNAME:$PASSWORD
 function usage() {
     echo "Downloads deployment unit matching a given pattern from a Maven artifact repository."
     echo
-    echo "Usage: update-service-template.sh"
+    echo "Usage: update-service.sh"
     echo "  --help                      This small usage guide."
     echo "  --version-pattern=<value>   The version pattern you want to match. See script code for details"
     echo "  --release-repo=<value>      The Maven release repository to download artifact from"
