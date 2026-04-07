@@ -10,5 +10,9 @@ Windows
 
 See pull_deploy/win directory.
 
+Linux
+============
+
+Please run install.sh
 
 
